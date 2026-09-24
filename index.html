@@ -1,0 +1,510 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CQ Status</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f5f7fb;
+      color: #17213d;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+      padding: 18px 14px 50px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    .subtitle {
+      margin-top: 5px;
+      color: #667085;
+      font-size: 13px;
+    }
+
+    .login-card,
+    .exam-card,
+    .summary-card {
+      background: white;
+      border: 1px solid #e5e8f0;
+      border-radius: 16px;
+    }
+
+    .login-card {
+      padding: 18px;
+      margin-top: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      font-size: 16px;
+      border: 1px solid #d8dce7;
+      border-radius: 10px;
+      margin: 10px 0;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      background: #354894;
+      color: white;
+      cursor: pointer;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .summary-card {
+      padding: 15px;
+    }
+
+    .summary-card span {
+      color: #667085;
+      font-size: 12px;
+    }
+
+    .summary-card strong {
+      display: block;
+      margin-top: 5px;
+      color: #354894;
+      font-size: 28px;
+    }
+
+    .exam-card {
+      padding: 15px;
+      margin-bottom: 12px;
+    }
+
+    .exam-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .exam-card h2 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.4;
+    }
+
+    .meta {
+      margin-top: 5px;
+      color: #667085;
+      font-size: 12px;
+    }
+
+    .time {
+      margin-top: 5px;
+      color: #98a2b3;
+      font-size: 11px;
+    }
+
+    .count {
+      min-width: 52px;
+      height: fit-content;
+      padding: 10px;
+      text-align: center;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: 800;
+      background: #fff0f8;
+      color: #cf278d;
+    }
+
+    details {
+      margin-top: 12px;
+    }
+
+    summary {
+      color: #354894;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .question {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      border-top: 1px solid #eef0f5;
+      padding: 10px 0;
+    }
+
+    .question strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .question small {
+      display: block;
+      margin-top: 3px;
+      color: #667085;
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    .qcount {
+      min-width: 34px;
+      height: fit-content;
+      padding: 5px 8px;
+      border-radius: 999px;
+      text-align: center;
+      background: #cf278d;
+      color: white;
+      font-weight: 700;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .toolbar button {
+      width: auto;
+      flex: 1;
+    }
+
+    .secondary {
+      background: #eef1fb;
+      color: #354894;
+    }
+
+    .error {
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 10px;
+      background: #fff1f1;
+      color: #b42318;
+      font-size: 13px;
+    }
+
+    .loading {
+      padding: 30px;
+      text-align: center;
+      color: #667085;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .updated {
+      margin-top: 12px;
+      text-align: center;
+      color: #98a2b3;
+      font-size: 11px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>CQ Status</h1>
+  <div class="subtitle">Latest CQ pending script status</div>
+
+  <div id="loginBox" class="login-card">
+    <strong>Enter Status Key</strong>
+
+```
+<input
+  id="statusKey"
+  type="password"
+  placeholder="STATUS_KEY"
+/>
+
+<button id="connectBtn">Open CQ Status</button>
+
+<div id="loginError" class="error hidden"></div>
+```
+
+  </div>
+
+  <div id="dashboard" class="hidden">
+
+```
+<div class="toolbar">
+  <button id="refreshBtn">Refresh Now</button>
+  <button id="logoutBtn" class="secondary">Change Key</button>
+</div>
+
+<div class="summary">
+  <div class="summary-card">
+    <span>Total Pending</span>
+    <strong id="totalPending">0</strong>
+  </div>
+
+  <div class="summary-card">
+    <span>Pending Exams</span>
+    <strong id="pendingExams">0</strong>
+  </div>
+</div>
+
+<div id="results"></div>
+
+<div id="updatedAt" class="updated"></div>
+```
+
+  </div>
+
+</div>
+
+<script>
+  const API_URL =
+    "https://qhnihvicfzwngkanmezy.supabase.co/functions/v1/cq-status";
+
+  const loginBox = document.getElementById("loginBox");
+  const dashboard = document.getElementById("dashboard");
+  const statusKeyInput = document.getElementById("statusKey");
+  const loginError = document.getElementById("loginError");
+  const results = document.getElementById("results");
+
+  function escapeHtml(value) {
+    return String(value ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function formatTime(value) {
+    return new Intl.DateTimeFormat("en-US", {
+      timeZone: "Asia/Dhaka",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true
+    }).format(new Date(value));
+  }
+
+  async function loadData() {
+    const key = sessionStorage.getItem("cq_status_key");
+
+    if (!key) {
+      loginBox.classList.remove("hidden");
+      dashboard.classList.add("hidden");
+      return;
+    }
+
+    results.innerHTML =
+      '<div class="loading">Loading latest status...</div>';
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "GET",
+        headers: {
+          "x-status-key": key
+        }
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        throw new Error(
+          data.message || "Could not load CQ status"
+        );
+      }
+
+      loginBox.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+
+      document.getElementById("totalPending").textContent =
+        data.total_pending || 0;
+
+      document.getElementById("pendingExams").textContent =
+        data.pending_exams || 0;
+
+      const exams = Array.isArray(data.exams)
+        ? data.exams
+        : [];
+
+      results.innerHTML = exams.length
+        ? exams
+            .sort(
+              (a, b) =>
+                Number(b.total_pending || 0) -
+                Number(a.total_pending || 0)
+            )
+            .map((exam) => {
+              const details = Array.isArray(exam.details)
+                ? exam.details
+                : [];
+
+              const questions = details.length
+                ? details
+                    .map(
+                      (item) => `
+                        <div class="question">
+                          <div>
+                            <strong>
+                              Set ${escapeHtml(item.set || "")}
+                              •
+                              ${escapeHtml(
+                                item.question || "Question"
+                              )}
+                            </strong>
+
+                            ${
+                              item.question_preview
+                                ? `<small>${escapeHtml(
+                                    item.question_preview
+                                  )}</small>`
+                                : ""
+                            }
+                          </div>
+
+                          <div class="qcount">
+                            ${Number(item.pending || 0)}
+                          </div>
+                        </div>
+                      `
+                    )
+                    .join("")
+                : `
+                    <div class="question">
+                      No pending question details.
+                    </div>
+                  `;
+
+              return `
+                <section class="exam-card">
+
+                  <div class="exam-top">
+
+                    <div>
+                      <h2>
+                        ${escapeHtml(
+                          exam.exam_name || "CQ Exam"
+                        )}
+                      </h2>
+
+                      <div class="meta">
+                        ${escapeHtml(exam.subject || "")}
+
+                        ${
+                          exam.class_name
+                            ? ` • ${escapeHtml(
+                                exam.class_name
+                              )}`
+                            : ""
+                        }
+
+                        ${
+                          exam.group_name
+                            ? ` • ${escapeHtml(
+                                exam.group_name
+                              )}`
+                            : ""
+                        }
+                      </div>
+
+                      <div class="time">
+                        Last scan:
+                        ${formatTime(exam.scanned_at)}
+                      </div>
+                    </div>
+
+                    <div class="count">
+                      ${Number(exam.total_pending || 0)}
+                    </div>
+
+                  </div>
+
+                  <details>
+                    <summary>View question details</summary>
+                    ${questions}
+                  </details>
+
+                </section>
+              `;
+            })
+            .join("")
+        : '<div class="loading">No scan data available.</div>';
+
+      document.getElementById("updatedAt").textContent =
+        `Page refreshed: ${formatTime(data.generated_at)}`;
+
+    } catch (error) {
+      sessionStorage.removeItem("cq_status_key");
+
+      dashboard.classList.add("hidden");
+      loginBox.classList.remove("hidden");
+
+      loginError.textContent = error.message;
+      loginError.classList.remove("hidden");
+    }
+  }
+
+  document
+    .getElementById("connectBtn")
+    .addEventListener("click", () => {
+      const key = statusKeyInput.value.trim();
+
+      if (!key) {
+        loginError.textContent =
+          "Please enter the Status Key.";
+        loginError.classList.remove("hidden");
+        return;
+      }
+
+      loginError.classList.add("hidden");
+
+      sessionStorage.setItem(
+        "cq_status_key",
+        key
+      );
+
+      loadData();
+    });
+
+  document
+    .getElementById("refreshBtn")
+    .addEventListener("click", loadData);
+
+  document
+    .getElementById("logoutBtn")
+    .addEventListener("click", () => {
+      sessionStorage.removeItem("cq_status_key");
+      location.reload();
+    });
+
+  if (sessionStorage.getItem("cq_status_key")) {
+    loadData();
+  }
+
+  setInterval(() => {
+    if (sessionStorage.getItem("cq_status_key")) {
+      loadData();
+    }
+  }, 60000);
+</script>
+
+</body>
+</html>
