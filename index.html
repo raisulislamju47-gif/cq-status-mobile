@@ -1,9 +1,13 @@
 <!doctype html>
-
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
   <title>CQ Status</title>
 
   <style>
@@ -26,24 +30,26 @@
 
     h1 {
       margin: 0;
-      font-size: 26px;
+      font-size: 25px;
     }
 
     .subtitle {
-      margin-top: 5px;
       color: #667085;
       font-size: 13px;
+      margin-top: 5px;
     }
 
-    .login-card,
-    .exam-card,
-    .summary-card {
+    .hidden {
+      display: none;
+    }
+
+    .card {
       background: white;
       border: 1px solid #e5e8f0;
-      border-radius: 16px;
+      border-radius: 15px;
     }
 
-    .login-card {
+    .login {
       padding: 18px;
       margin-top: 20px;
     }
@@ -51,140 +57,26 @@
     input {
       width: 100%;
       padding: 13px;
-      font-size: 16px;
+      margin: 10px 0;
       border: 1px solid #d8dce7;
       border-radius: 10px;
-      margin: 10px 0;
+      font-size: 16px;
     }
 
     button {
-      width: 100%;
-      border: none;
+      border: 0;
       border-radius: 10px;
-      padding: 13px;
-      font-size: 15px;
-      font-weight: 700;
+      padding: 12px 14px;
       background: #354894;
       color: white;
-      cursor: pointer;
-    }
-
-    .summary {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 18px 0;
-    }
-
-    .summary-card {
-      padding: 15px;
-    }
-
-    .summary-card span {
-      color: #667085;
-      font-size: 12px;
-    }
-
-    .summary-card strong {
-      display: block;
-      margin-top: 5px;
-      color: #354894;
-      font-size: 28px;
-    }
-
-    .exam-card {
-      padding: 15px;
-      margin-bottom: 12px;
-    }
-
-    .exam-top {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 12px;
-    }
-
-    .exam-card h2 {
-      margin: 0;
-      font-size: 15px;
-      line-height: 1.4;
-    }
-
-    .meta {
-      margin-top: 5px;
-      color: #667085;
-      font-size: 12px;
-    }
-
-    .time {
-      margin-top: 5px;
-      color: #98a2b3;
-      font-size: 11px;
-    }
-
-    .count {
-      min-width: 52px;
-      height: fit-content;
-      padding: 10px;
-      text-align: center;
-      border-radius: 12px;
-      font-size: 20px;
-      font-weight: 800;
-      background: #fff0f8;
-      color: #cf278d;
-    }
-
-    details {
-      margin-top: 12px;
-    }
-
-    summary {
-      color: #354894;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
     }
 
-    .question {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 10px;
-      border-top: 1px solid #eef0f5;
-      padding: 10px 0;
-    }
-
-    .question strong {
-      display: block;
-      font-size: 12px;
-    }
-
-    .question small {
-      display: block;
-      margin-top: 3px;
-      color: #667085;
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    .qcount {
-      min-width: 34px;
-      height: fit-content;
-      padding: 5px 8px;
-      border-radius: 999px;
-      text-align: center;
-      background: #cf278d;
-      color: white;
-      font-weight: 700;
-    }
-
-    .toolbar {
-      display: flex;
-      gap: 8px;
-      margin-top: 12px;
-    }
-
-    .toolbar button {
-      width: auto;
-      flex: 1;
+    button:disabled {
+      opacity: .55;
+      cursor: not-allowed;
     }
 
     .secondary {
@@ -192,33 +84,230 @@
       color: #354894;
     }
 
-    .error {
-      margin-top: 14px;
-      padding: 12px;
-      border-radius: 10px;
-      background: #fff1f1;
-      color: #b42318;
-      font-size: 13px;
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0;
     }
 
-    .loading {
-      padding: 30px;
-      text-align: center;
+    .top-actions button {
+      flex: 1;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .summary .card {
+      padding: 14px;
+    }
+
+    .summary span {
+      font-size: 11px;
       color: #667085;
     }
 
-    .hidden {
-      display: none;
+    .summary strong {
+      display: block;
+      font-size: 27px;
+      color: #354894;
+      margin-top: 4px;
+    }
+
+    .section-title {
+      margin: 22px 0 10px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .schedule-card {
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .schedule-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .course {
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.4;
+    }
+
+    .meta {
+      font-size: 11px;
+      color: #667085;
+      margin-top: 4px;
+    }
+
+    .time {
+      font-size: 11px;
+      color: #98a2b3;
+      margin-top: 4px;
+    }
+
+    .pill {
+      padding: 6px 8px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .upcoming {
+      background: #eef1fb;
+      color: #354894;
+    }
+
+    .waiting {
+      background: #fff4e5;
+      color: #b54708;
+    }
+
+    .completed {
+      background: #eafbf0;
+      color: #16803c;
+    }
+
+    .processing {
+      background: #f3e8ff;
+      color: #7e22ce;
+    }
+
+    .schedule-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .schedule-actions button {
+      flex: 1;
+    }
+
+    .pending-mini {
+      font-size: 12px;
+      color: #667085;
+    }
+
+    .pending-mini strong {
+      color: #cf278d;
+      font-size: 16px;
+    }
+
+    .result-card {
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .result-top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+    }
+
+    .result-card h2 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .count {
+      min-width: 50px;
+      height: fit-content;
+      text-align: center;
+      padding: 10px;
+      border-radius: 12px;
+      background: #fff0f8;
+      color: #cf278d;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    details {
+      margin-top: 11px;
+    }
+
+    summary {
+      font-size: 11px;
+      color: #354894;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .question {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      border-top: 1px solid #eef0f5;
+      padding: 9px 0;
+    }
+
+    .question strong {
+      display: block;
+      font-size: 11px;
+    }
+
+    .question small {
+      display: block;
+      color: #667085;
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .qcount {
+      background: #cf278d;
+      color: white;
+      min-width: 32px;
+      text-align: center;
+      height: fit-content;
+      padding: 5px 7px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .message {
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin: 12px 0;
+    }
+
+    .message.good {
+      background: #eafbf0;
+      color: #16803c;
+    }
+
+    .message.warn {
+      background: #fff4e5;
+      color: #b54708;
+    }
+
+    .message.error {
+      background: #fff1f1;
+      color: #b42318;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 25px;
+      color: #667085;
     }
 
     .updated {
-      margin-top: 12px;
       text-align: center;
+      margin-top: 20px;
       color: #98a2b3;
-      font-size: 11px;
+      font-size: 10px;
     }
   </style>
-
 </head>
 
 <body>
@@ -226,284 +315,694 @@
 <div class="container">
 
   <h1>CQ Status</h1>
-  <div class="subtitle">Latest CQ pending script status</div>
 
-  <div id="loginBox" class="login-card">
+  <div class="subtitle">
+    Live pending script monitoring
+  </div>
+
+  <div id="loginBox" class="card login">
     <strong>Enter Status Key</strong>
 
-```
-<input
-  id="statusKey"
-  type="password"
-  placeholder="STATUS_KEY"
-/>
+    <input
+      id="statusKey"
+      type="password"
+      placeholder="STATUS_KEY"
+    >
 
-<button id="connectBtn">Open CQ Status</button>
+    <button id="connectBtn">
+      Open CQ Status
+    </button>
 
-<div id="loginError" class="error hidden"></div>
-```
-
+    <div
+      id="loginError"
+      class="message error hidden"
+    ></div>
   </div>
+
 
   <div id="dashboard" class="hidden">
 
-```
-<div class="toolbar">
-  <button id="refreshBtn">Refresh Now</button>
-  <button id="logoutBtn" class="secondary">Change Key</button>
-</div>
+    <div class="top-actions">
 
-<div class="summary">
-  <div class="summary-card">
-    <span>Total Pending</span>
-    <strong id="totalPending">0</strong>
+      <button id="reloadBtn">
+        Reload Data
+      </button>
+
+      <button
+        id="changeKeyBtn"
+        class="secondary"
+      >
+        Change Key
+      </button>
+
+    </div>
+
+
+    <div id="globalMessage" class="hidden"></div>
+
+
+    <div class="summary">
+
+      <div class="card">
+        <span>Total Pending</span>
+        <strong id="totalPending">0</strong>
+      </div>
+
+      <div class="card">
+        <span>Pending Exams</span>
+        <strong id="pendingExams">0</strong>
+      </div>
+
+    </div>
+
+
+    <div class="section-title">
+      Today's Schedule
+    </div>
+
+    <div id="scheduleList">
+      <div class="loading">Loading schedule...</div>
+    </div>
+
+
+    <div class="section-title">
+      Latest Scan Results
+    </div>
+
+    <div id="results">
+      <div class="loading">
+        Loading latest results...
+      </div>
+    </div>
+
+
+    <div id="updatedAt" class="updated"></div>
+
   </div>
 
-  <div class="summary-card">
-    <span>Pending Exams</span>
-    <strong id="pendingExams">0</strong>
-  </div>
 </div>
 
-<div id="results"></div>
-
-<div id="updatedAt" class="updated"></div>
-```
-
-  </div>
-
-</div>
 
 <script>
-  const API_URL =
-    "https://qhnihvicfzwngkanmezy.supabase.co/functions/v1/cq-status";
 
-  const loginBox = document.getElementById("loginBox");
-  const dashboard = document.getElementById("dashboard");
-  const statusKeyInput = document.getElementById("statusKey");
-  const loginError = document.getElementById("loginError");
-  const results = document.getElementById("results");
+const API_URL =
+  "https://qhnihvicfzwngkanmezy.supabase.co/functions/v1/cq-status";
 
-  function escapeHtml(value) {
-    return String(value ?? "")
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+
+const loginBox =
+  document.getElementById("loginBox");
+
+const dashboard =
+  document.getElementById("dashboard");
+
+const statusKeyInput =
+  document.getElementById("statusKey");
+
+const loginError =
+  document.getElementById("loginError");
+
+const scheduleList =
+  document.getElementById("scheduleList");
+
+const results =
+  document.getElementById("results");
+
+const globalMessage =
+  document.getElementById("globalMessage");
+
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+
+function formatTime(value) {
+  if (!value) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Dhaka",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  }).format(new Date(value));
+}
+
+
+function formatDateTime(value) {
+  if (!value) return "";
+
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: "Asia/Dhaka",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true
+  }).format(new Date(value));
+}
+
+
+function showMessage(text, type = "good") {
+
+  globalMessage.textContent = text;
+
+  globalMessage.className =
+    `message ${type}`;
+
+  globalMessage.classList.remove("hidden");
+}
+
+
+function clearMessage() {
+  globalMessage.classList.add("hidden");
+}
+
+
+function getStatus(schedule) {
+
+  if (schedule.status === "completed") {
+    return {
+      label: "Completed",
+      css: "completed"
+    };
   }
 
-  function formatTime(value) {
-    return new Intl.DateTimeFormat("en-US", {
-      timeZone: "Asia/Dhaka",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true
-    }).format(new Date(value));
+  if (schedule.status === "processing") {
+    return {
+      label: "Scanning",
+      css: "processing"
+    };
   }
 
-  async function loadData() {
-    const key = sessionStorage.getItem("cq_status_key");
+  const now = new Date();
 
-    if (!key) {
-      loginBox.classList.remove("hidden");
-      dashboard.classList.add("hidden");
-      return;
+  const availableAt =
+    new Date(schedule.script_available_at);
+
+  if (availableAt <= now) {
+    return {
+      label: "Waiting for Scripts",
+      css: "waiting"
+    };
+  }
+
+  return {
+    label: "Upcoming",
+    css: "upcoming"
+  };
+}
+
+
+async function scanNow(scheduleId, button) {
+
+  const key =
+    sessionStorage.getItem("cq_status_key");
+
+  if (!key) return;
+
+  const oldText = button.textContent;
+
+  button.disabled = true;
+  button.textContent = "Scanning...";
+
+  clearMessage();
+
+  try {
+
+    const response = await fetch(API_URL, {
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+        "x-status-key": key
+      },
+
+      body: JSON.stringify({
+        schedule_id: scheduleId
+      })
+    });
+
+
+    const data = await response.json();
+
+
+    if (!response.ok || !data.success) {
+      throw new Error(
+        data.message || "Live scan failed"
+      );
     }
 
+
+    if (data.available === false) {
+
+      showMessage(
+        `${data.course_name}: Scripts are not available on the CQ portal yet.`,
+        "warn"
+      );
+
+    } else {
+
+      showMessage(
+        `${data.course_name}: Live scan completed. ${data.total_pending} pending.`,
+        "good"
+      );
+
+    }
+
+
+    await loadData(false);
+
+  } catch (error) {
+
+    showMessage(
+      error.message || "Live scan failed",
+      "error"
+    );
+
+  } finally {
+
+    button.disabled = false;
+    button.textContent = oldText;
+
+  }
+}
+
+
+function renderSchedule(schedule) {
+
+  if (!Array.isArray(schedule) || !schedule.length) {
+
+    scheduleList.innerHTML =
+      '<div class="loading">No exams scheduled today.</div>';
+
+    return;
+  }
+
+
+  scheduleList.innerHTML =
+    schedule.map(item => {
+
+      const status = getStatus(item);
+
+      const pending =
+        item.scan_total_pending !== null &&
+        item.scan_total_pending !== undefined
+          ? Number(item.scan_total_pending)
+          : null;
+
+
+      return `
+        <div class="card schedule-card">
+
+          <div class="schedule-top">
+
+            <div>
+
+              <div class="course">
+                ${escapeHtml(item.course_name)}
+              </div>
+
+              <div class="meta">
+                ${escapeHtml(item.scope || "")}
+                •
+                ${escapeHtml(item.title_contains || "")}
+              </div>
+
+              <div class="time">
+                Script availability:
+                ${formatTime(item.script_available_at)}
+              </div>
+
+              ${
+                item.scanned_at
+                  ? `
+                    <div class="time">
+                      Last scan:
+                      ${formatTime(item.scanned_at)}
+                    </div>
+                  `
+                  : ""
+              }
+
+            </div>
+
+            <div class="pill ${status.css}">
+              ${status.label}
+            </div>
+
+          </div>
+
+
+          <div class="schedule-actions">
+
+            <button
+              class="scan-button"
+              data-id="${item.id}"
+            >
+              Scan Now
+            </button>
+
+            <div class="pending-mini">
+              ${
+                pending !== null
+                  ? `Pending: <strong>${pending}</strong>`
+                  : "Not scanned yet"
+              }
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join("");
+
+
+  document
+    .querySelectorAll(".scan-button")
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => scanNow(
+          Number(button.dataset.id),
+          button
+        )
+      );
+
+    });
+}
+
+
+function renderResults(exams) {
+
+  if (!Array.isArray(exams) || !exams.length) {
+
     results.innerHTML =
-      '<div class="loading">Loading latest status...</div>';
+      '<div class="loading">No scan results for today yet.</div>';
 
-    try {
-      const response = await fetch(API_URL, {
-        method: "GET",
-        headers: {
-          "x-status-key": key
-        }
-      });
+    return;
+  }
 
-      const data = await response.json();
 
-      if (!response.ok || !data.success) {
-        throw new Error(
-          data.message || "Could not load CQ status"
-        );
-      }
+  results.innerHTML =
+    exams
+      .sort(
+        (a, b) =>
+          Number(b.total_pending || 0) -
+          Number(a.total_pending || 0)
+      )
+      .map(exam => {
 
-      loginBox.classList.add("hidden");
-      dashboard.classList.remove("hidden");
+        const details =
+          Array.isArray(exam.details)
+            ? exam.details
+            : [];
 
-      document.getElementById("totalPending").textContent =
-        data.total_pending || 0;
 
-      document.getElementById("pendingExams").textContent =
-        data.pending_exams || 0;
+        const questionHtml =
+          details.length
+            ? details.map(item => `
+                <div class="question">
 
-      const exams = Array.isArray(data.exams)
-        ? data.exams
-        : [];
+                  <div>
 
-      results.innerHTML = exams.length
-        ? exams
-            .sort(
-              (a, b) =>
-                Number(b.total_pending || 0) -
-                Number(a.total_pending || 0)
-            )
-            .map((exam) => {
-              const details = Array.isArray(exam.details)
-                ? exam.details
-                : [];
+                    <strong>
+                      Set ${escapeHtml(item.set || "")}
+                      •
+                      ${escapeHtml(
+                        item.question || "Question"
+                      )}
+                    </strong>
 
-              const questions = details.length
-                ? details
-                    .map(
-                      (item) => `
-                        <div class="question">
-                          <div>
-                            <strong>
-                              Set ${escapeHtml(item.set || "")}
-                              •
-                              ${escapeHtml(
-                                item.question || "Question"
-                              )}
-                            </strong>
-
-                            ${
+                    ${
+                      item.question_preview
+                        ? `
+                          <small>
+                            ${escapeHtml(
                               item.question_preview
-                                ? `<small>${escapeHtml(
-                                    item.question_preview
-                                  )}</small>`
-                                : ""
-                            }
-                          </div>
-
-                          <div class="qcount">
-                            ${Number(item.pending || 0)}
-                          </div>
-                        </div>
-                      `
-                    )
-                    .join("")
-                : `
-                    <div class="question">
-                      No pending question details.
-                    </div>
-                  `;
-
-              return `
-                <section class="exam-card">
-
-                  <div class="exam-top">
-
-                    <div>
-                      <h2>
-                        ${escapeHtml(
-                          exam.exam_name || "CQ Exam"
-                        )}
-                      </h2>
-
-                      <div class="meta">
-                        ${escapeHtml(exam.subject || "")}
-
-                        ${
-                          exam.class_name
-                            ? ` • ${escapeHtml(
-                                exam.class_name
-                              )}`
-                            : ""
-                        }
-
-                        ${
-                          exam.group_name
-                            ? ` • ${escapeHtml(
-                                exam.group_name
-                              )}`
-                            : ""
-                        }
-                      </div>
-
-                      <div class="time">
-                        Last scan:
-                        ${formatTime(exam.scanned_at)}
-                      </div>
-                    </div>
-
-                    <div class="count">
-                      ${Number(exam.total_pending || 0)}
-                    </div>
+                            )}
+                          </small>
+                        `
+                        : ""
+                    }
 
                   </div>
 
-                  <details>
-                    <summary>View question details</summary>
-                    ${questions}
-                  </details>
+                  <div class="qcount">
+                    ${Number(item.pending || 0)}
+                  </div>
 
-                </section>
-              `;
-            })
-            .join("")
-        : '<div class="loading">No scan data available.</div>';
+                </div>
+              `).join("")
+            : `
+              <div class="question">
+                No pending question details.
+              </div>
+            `;
 
-      document.getElementById("updatedAt").textContent =
-        `Page refreshed: ${formatTime(data.generated_at)}`;
 
-    } catch (error) {
-      sessionStorage.removeItem("cq_status_key");
+        return `
+          <div class="card result-card">
 
-      dashboard.classList.add("hidden");
-      loginBox.classList.remove("hidden");
+            <div class="result-top">
 
-      loginError.textContent = error.message;
-      loginError.classList.remove("hidden");
-    }
+              <div>
+
+                <h2>
+                  ${escapeHtml(
+                    exam.exam_name || "CQ Exam"
+                  )}
+                </h2>
+
+                <div class="meta">
+
+                  ${escapeHtml(exam.subject || "")}
+
+                  ${
+                    exam.class_name
+                      ? ` • ${escapeHtml(
+                          exam.class_name
+                        )}`
+                      : ""
+                  }
+
+                  ${
+                    exam.group_name
+                      ? ` • ${escapeHtml(
+                          exam.group_name
+                        )}`
+                      : ""
+                  }
+
+                </div>
+
+                <div class="time">
+                  Last scan:
+                  ${formatTime(exam.scanned_at)}
+                </div>
+
+              </div>
+
+              <div class="count">
+                ${Number(exam.total_pending || 0)}
+              </div>
+
+            </div>
+
+
+            <details>
+
+              <summary>
+                View question details
+              </summary>
+
+              ${questionHtml}
+
+            </details>
+
+          </div>
+        `;
+
+      })
+      .join("");
+}
+
+
+async function loadData(showLoading = true) {
+
+  const key =
+    sessionStorage.getItem("cq_status_key");
+
+
+  if (!key) {
+
+    loginBox.classList.remove("hidden");
+    dashboard.classList.add("hidden");
+
+    return;
   }
 
-  document
-    .getElementById("connectBtn")
-    .addEventListener("click", () => {
-      const key = statusKeyInput.value.trim();
 
-      if (!key) {
-        loginError.textContent =
-          "Please enter the Status Key.";
-        loginError.classList.remove("hidden");
-        return;
+  if (showLoading) {
+    scheduleList.innerHTML =
+      '<div class="loading">Loading schedule...</div>';
+  }
+
+
+  try {
+
+    const response = await fetch(API_URL, {
+
+      headers: {
+        "x-status-key": key
       }
 
-      loginError.classList.add("hidden");
+    });
 
-      sessionStorage.setItem(
-        "cq_status_key",
-        key
+
+    const data = await response.json();
+
+
+    if (!response.ok || !data.success) {
+
+      throw new Error(
+        data.message ||
+        "Could not load CQ status"
       );
 
-      loadData();
-    });
+    }
 
-  document
-    .getElementById("refreshBtn")
-    .addEventListener("click", loadData);
 
-  document
-    .getElementById("logoutBtn")
-    .addEventListener("click", () => {
-      sessionStorage.removeItem("cq_status_key");
-      location.reload();
-    });
+    loginBox.classList.add("hidden");
+    dashboard.classList.remove("hidden");
 
-  if (sessionStorage.getItem("cq_status_key")) {
+
+    document.getElementById(
+      "totalPending"
+    ).textContent =
+      Number(data.total_pending || 0);
+
+
+    document.getElementById(
+      "pendingExams"
+    ).textContent =
+      Number(data.pending_exams || 0);
+
+
+    renderSchedule(data.schedule);
+
+    renderResults(data.exams);
+
+
+    document.getElementById(
+      "updatedAt"
+    ).textContent =
+      `Data loaded: ${formatDateTime(
+        data.generated_at
+      )}`;
+
+
+  } catch (error) {
+
+    sessionStorage.removeItem(
+      "cq_status_key"
+    );
+
+
+    dashboard.classList.add("hidden");
+    loginBox.classList.remove("hidden");
+
+
+    loginError.textContent =
+      error.message;
+
+
+    loginError.classList.remove("hidden");
+
+  }
+}
+
+
+document
+  .getElementById("connectBtn")
+  .addEventListener("click", () => {
+
+    const key =
+      statusKeyInput.value.trim();
+
+
+    if (!key) {
+
+      loginError.textContent =
+        "Please enter your Status Key.";
+
+      loginError.classList.remove("hidden");
+
+      return;
+    }
+
+
+    sessionStorage.setItem(
+      "cq_status_key",
+      key
+    );
+
+
+    loginError.classList.add("hidden");
+
     loadData();
+
+  });
+
+
+document
+  .getElementById("reloadBtn")
+  .addEventListener(
+    "click",
+    () => loadData()
+  );
+
+
+document
+  .getElementById("changeKeyBtn")
+  .addEventListener("click", () => {
+
+    sessionStorage.removeItem(
+      "cq_status_key"
+    );
+
+    location.reload();
+
+  });
+
+
+if (
+  sessionStorage.getItem("cq_status_key")
+) {
+  loadData();
+}
+
+
+/*
+ * Reload stored data automatically every minute.
+ * This does NOT trigger CQ scans.
+ */
+setInterval(() => {
+
+  if (
+    sessionStorage.getItem("cq_status_key")
+  ) {
+    loadData(false);
   }
 
-  setInterval(() => {
-    if (sessionStorage.getItem("cq_status_key")) {
-      loadData();
-    }
-  }, 60000);
+}, 60000);
+
 </script>
 
 </body>
